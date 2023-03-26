@@ -23,7 +23,7 @@ Trace the chin of thoughts at `localhost:4173`
 ![Chain of Thought](images/DebugCOT.png)
 
 The following star schema and data will be populated in data lake (from the data generation step):
-![Table Struct](images/tableStruct.png)
+![Table Struct](images/tableStruct.jpg)
 
 
 ## Quick intro to the folder structure
