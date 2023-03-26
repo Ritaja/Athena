@@ -19,7 +19,7 @@ The project has is dockerized, edit the [Environment file](app/.env) with approp
 Navigate to `localhost:8501` for the app:
 ![App Screenshot](images/athenaApp.png)
 
-Trace the chin of thoughts at `localhost:4173`
+Trace the chain of thoughts at `localhost:4173`
 ![Chain of Thought](images/DebugCOT.png)
 
 The following star schema and data will be populated in data lake (from the data generation step):
