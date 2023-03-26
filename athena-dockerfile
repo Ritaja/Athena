@@ -1,0 +1,29 @@
+FROM debian:bullseye
+
+WORKDIR /Athena
+
+COPY ./app /Athena/app
+
+COPY ./scripts /Athena/scripts
+
+RUN chmod +x scripts/mssql-odbc.sh
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    software-properties-common \
+    python3-pip  \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN scripts/mssql-odbc.sh
+
+RUN pip install -r app/requirements.txt
+
+# settings for the lanchain server (local setup)
+ENV LANGCHAIN_HANDLER=langchain
+ENV LANGCHAIN_SESSION=default
+# save path for mssql 18 driver
+ENV PATH="$PATH:/opt/mssql-tools18/bin"
+EXPOSE 8501 
+
+ENTRYPOINT ["/bin/bash", "-c", "streamlit run app/Azure_OpenAI_demo.py --server.port=8501 --server.address=0.0.0.0"]

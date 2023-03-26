@@ -1,0 +1,38 @@
+version: '3'
+services:
+  athena-app:
+    build:
+      dockerfile: ./athena-dockerfile
+      context: .
+    image: athena:latest
+    environment:
+      - LANGCHAIN_ENDPOINT=http://langchain-backend:8000
+    ports:
+      - 8501:8501
+  langchain-frontend:
+    image: notlangchain/langchainplus-frontend:latest
+    ports:
+      - 4173:4173
+    environment:
+      - BACKEND_URL=http://langchain-backend:8000
+      - PUBLIC_BASE_URL=http://localhost:8000
+      - PUBLIC_DEV_MODE=true
+    depends_on:
+      - langchain-backend
+  langchain-backend:
+    image: notlangchain/langchainplus:latest
+    environment:
+      - PORT=8000
+      - LANGCHAIN_ENV=local
+    ports:
+      - 8000:8000
+    depends_on:
+      - langchain-db
+  langchain-db:
+    image: postgres:14.1
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 5432:5432

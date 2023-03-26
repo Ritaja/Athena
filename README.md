@@ -5,6 +5,27 @@ We know that LLMs can generate SQL code from Natural language. The challenge in 
 
 We showcase using prompt engineering approaches from chain of thought modelling we can make this approach scalable. This project shows LLMs working from natural language to query a star schema in data lake (via Synapse) without the need to know the DB schema before hand.We employ Lakehouse pattern in this showcase.
 
+## Quickstart
+
+Prerequisites:
+- An Azure Open AI Service up and running
+- An Azure Synpase up and running
+- Data lake populated as per description in section "Setting up the data in the Data lake" below
+
+The project has is dockerized, edit the [Environment file](app/.env) with appropriate values and then run `docker-compose up`
+
+
+
+Navigate to `localhost:8501` for the app:
+![App Screenshot](images/athenaApp.png)
+
+Trace the chin of thoughts at `localhost:4173`
+![Chain of Thought](images/DebugCOT.png)
+
+The following star schema and data will be populated in data lake (from the data generation step):
+![Table Struct](images/tableStruct.png)
+
+
 ## Quick intro to the folder structure
 
 - `app`: The app folder for the Streamlit app and logic 
@@ -12,6 +33,7 @@ We showcase using prompt engineering approaches from chain of thought modelling 
 - `app/pages` Pages for the Streamlit app (will be extended to more pages in the future)
 - `scripts` Setup scrpts to install and configure drivers
 - `synapse` Scripts to generate fake data for our retail star schema, store in data lake via spark and then scripts to create external tables via SQL (lakehouse pattern)
+- `images` Images used in documentation/readme
 
 ## Setting up the data in the Data lake
 - Create a Synapse environment and create a Dedicated sqlpool and a Spark cluster in the environment (refer Azure docs)
