@@ -5,6 +5,9 @@ We know that LLMs can generate SQL code from Natural language. The challenge in 
 
 We showcase using prompt engineering approaches from chain of thought modelling we can make this approach scalable. This project shows LLMs working from natural language to query a star schema in data lake (via Synapse) without the need to know the DB schema before hand.We employ Lakehouse pattern in this showcase.
 
+The High level Arch is as follows:
+![Architecture](images/OAISynapse.png)
+
 ## Quickstart
 
 Prerequisites:
