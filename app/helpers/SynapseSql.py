@@ -16,7 +16,8 @@ class SynapseSql:
         self.conn_str = 'mssql+pyodbc:///?odbc_connect={}'.format(params)
 
         db = SQLDatabase.from_uri(self.conn_str)
-        self.toolkit = SQLDatabaseToolkit(db=db)
+        llm = AzureOpenAI(temperature=0,  deployment_name=llm_engine_name)
+        self.toolkit = SQLDatabaseToolkit(db=db,llm=llm)
 
         self.SQL_PREFIX = """You are an agent designed to interact with SQL database systems.
         Given an input question, create a syntactically correct {dialect} query to run, then look at the results of the query and return the answer.
@@ -33,7 +34,7 @@ class SynapseSql:
         """
 
         self.agent_executor = create_sql_agent(
-                llm=AzureOpenAI(temperature=0,  deployment_name=llm_engine_name),
+                llm=llm,
                 toolkit=self.toolkit,
                 verbose=True,
                 prefix=self.SQL_PREFIX, 
